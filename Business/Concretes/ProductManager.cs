@@ -20,6 +20,7 @@ namespace Business.Concretes
         }
         public async Task Add(Product product)
         {
+            product.Id = Guid.NewGuid();
             _productDal.AddAsync(product);
         }
 
