@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Entities.Concretes
 {
-    public class Category : Entity<Guid>
+    public class Instructor : Entity<Guid>
     {
-        public string CategoryName { get; set; }
+        public string FirstName { get; set; }
 
-        public List<Course> Courses { get; set; }
+        public string LastName { get; set; }
 
-
+        public List<Course> courses;
     }
 }

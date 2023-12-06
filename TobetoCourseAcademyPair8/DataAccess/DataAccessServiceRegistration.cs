@@ -19,6 +19,8 @@ namespace DataAccess
             services.AddDbContext<TobetoCourseContext>(options => options.UseSqlServer("Server=DESKTOP-3LFDKEV;Database=TobetoCourseCategoryTest;Trusted_Connection= true; TrustServerCertificate = True"));
            // services.AddDbContext<TobetoCourseContext>(options => options.UseInMemoryDatabase("TobetoCourse"));
             services.AddScoped<ICategoryDal, EfCategoryDal>();
+            services.AddScoped<ICourseDal, EfCourseDal>();
+            services.AddScoped<IInstructorDal, EfInstructorDal>();
             return services;
         }
     }

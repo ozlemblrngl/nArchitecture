@@ -7,26 +7,30 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CoursesController : ControllerBase
     {
-        ICategoryService _categoryService;
+        ICourseService _courseService;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CoursesController(ICourseService courseService)
         {
-            _categoryService = categoryService;
+            _courseService = courseService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] Category category)
+
+        public async Task<IActionResult> Add([FromBody] Course course)
         {
-            await _categoryService.Add(category); 
+            await _courseService.Add(course);
             return Ok();
         }
+
         [HttpGet]
+
         public async Task<IActionResult> GetList()
         {
-            var result = await _categoryService.GetListAsync(); 
+            var result = await _courseService.GetListAsync();
             return Ok(result);
         }
+
     }
 }
