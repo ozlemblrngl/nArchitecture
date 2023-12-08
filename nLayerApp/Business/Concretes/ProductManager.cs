@@ -34,9 +34,9 @@ namespace Business.Concretes
            CreatedProductResponse createdProductResponse = new CreatedProductResponse();
             createdProductResponse.Id = createdProduct.Id;
             createdProductResponse.ProductName = createProductRequest.ProductName; 
-            createdProductResponse.QuantityPerUnit = createdProductResponse.QuantityPerUnit;
-            createdProductResponse.UnitPrice = createdProductResponse.UnitPrice;
-            createdProductResponse.UnitsInStock= createdProductResponse.UnitsInStock;
+            createdProductResponse.QuantityPerUnit = createProductRequest.QuantityPerUnit;
+            createdProductResponse.UnitPrice = createProductRequest.UnitPrice;
+            createdProductResponse.UnitsInStock= createProductRequest.UnitsInStock;
 
             return createdProductResponse;
         }
