@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Business.Dtos.Requests;
+using Business.Dtos.Responses;
 
 namespace Business.Concretes
 {
@@ -18,12 +20,27 @@ namespace Business.Concretes
         {
             _productDal = productDal;
         }
-        public async Task Add(Product product)
+        public async Task<CreatedProductResponse> Add(CreateProductRequest createProductRequest)
         {
+            Product product = new Product();
             product.Id = Guid.NewGuid();
-            _productDal.AddAsync(product);
-        }
+            product.ProductName = createProductRequest.ProductName;
+            product.QuantityPerUnit = createProductRequest.QuantityPerUnit;
+            product.UnitPrice = createProductRequest.UnitPrice;
+            product.UnitsInStock = createProductRequest.UnitsInStock;
 
+           Product createdProduct = await _productDal.AddAsync(product);
+           
+           CreatedProductResponse createdProductResponse = new CreatedProductResponse();
+            createdProductResponse.Id = createdProduct.Id;
+            createdProductResponse.ProductName = createProductRequest.ProductName; 
+            createdProductResponse.QuantityPerUnit = createdProductResponse.QuantityPerUnit;
+            createdProductResponse.UnitPrice = createdProductResponse.UnitPrice;
+            createdProductResponse.UnitsInStock= createdProductResponse.UnitsInStock;
+
+            return createdProductResponse;
+        }
+        //GetListProductResponce mapper kullanmadan çevir
         public async Task<Paginate<Product>> GetListAsync()
         {
             var result= await _productDal.GetListAsync();

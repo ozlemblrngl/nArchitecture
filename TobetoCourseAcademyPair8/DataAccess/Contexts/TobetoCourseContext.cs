@@ -13,7 +13,7 @@ namespace DataAccess.Contexts
     public class TobetoCourseContext :DbContext
     {
         protected IConfiguration Configuration { get; set; }
-        public DbSet<Category> Categories2 { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public TobetoCourseContext(DbContextOptions dbContextOptions , IConfiguration configuration) : base(dbContextOptions) 
         {
             Configuration = configuration; 

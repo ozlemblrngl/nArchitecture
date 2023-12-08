@@ -17,8 +17,8 @@ namespace DataAccess
     {
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<NorthwindContext>(options => options.UseInMemoryDatabase("nArchitecture"));
-            // services.AddDbContext<NorthwindContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-WebApplica71d622;Trusted_Connection=True;TrustServerCertificate=true"));
+           // services.AddDbContext<NorthwindContext>(options => options.UseInMemoryDatabase("nArchitecture"));
+            services.AddDbContext<NorthwindContext>(options => options.UseSqlServer("ETradeA"));
 
             services.AddScoped<IProductDal, EfProductDal>();
             return services;
