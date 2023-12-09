@@ -31,8 +31,8 @@ namespace Business.Concretes
 
             CreatedInstructorResponse createdInstructorResponse = new CreatedInstructorResponse();
             createdInstructorResponse.Id = createdInstructor.Id;
-            createdInstructorResponse.FirstName = createInstructorRequest.FirstName;
-            createdInstructorResponse.LastName = createInstructorRequest.LastName;
+            createdInstructorResponse.FirstName = createdInstructor.FirstName;
+            createdInstructorResponse.LastName = createdInstructor.LastName;
 
             return createdInstructorResponse;
         }

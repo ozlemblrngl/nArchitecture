@@ -1,4 +1,5 @@
-﻿using Business.Abstracts;
+﻿using AutoMapper;
+using Business.Abstracts;
 using Business.Dtos.Request;
 using Business.Dtos.Response;
 using Core.DataAccess.Paging;
@@ -15,10 +16,12 @@ namespace Business.Concretes
     public class CategoryManager : ICategoryService
     {
         ICategoryDal _categoryDal;
+        IMapper _mapper;
 
-        public CategoryManager(ICategoryDal categoryDal)
+        public CategoryManager(ICategoryDal categoryDal, IMapper mapper)
         {
             _categoryDal = categoryDal;
+            _mapper = mapper;
         }
 
         public async Task<CreatedCategoryResponse> Add(CreateCategoryRequest createCategoryRequest)
@@ -28,9 +31,12 @@ namespace Business.Concretes
             category.Name = createCategoryRequest.Name;
 
             Category createdCategory = await _categoryDal.AddAsync(category);
+
             CreatedCategoryResponse createdCategoryResponse = new CreatedCategoryResponse();
             createdCategoryResponse.Id = createdCategory.Id;
-            createdCategoryResponse.Name = createCategoryRequest.Name;
+            createdCategoryResponse.Name = createdCategory.Name;
+
+            return createdCategoryResponse;
         }
 
         public async Task<IPaginate<CreatedCategoryResponse>> GetListAsync()
