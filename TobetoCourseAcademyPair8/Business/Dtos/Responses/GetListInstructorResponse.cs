@@ -13,6 +13,6 @@ namespace Business.Dtos.Responses
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public List<Course>? courses;
+       // public List<Course>? courses; --> ileride include ile kullanılabilir.
     }
 }

@@ -21,8 +21,8 @@ namespace WebApi.Controllers
 
         public async Task<IActionResult> Add([FromBody] CreateCourseRequest createCourseRequest)
         {
-            await _courseService.Add(createCourseRequest);
-            return Ok();
+            var result= await _courseService.Add(createCourseRequest);
+            return Ok(result);
         }
 
         [HttpGet]

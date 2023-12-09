@@ -13,6 +13,5 @@ namespace Business.Dtos.Response
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public List<Course>? courses;
     }
 }

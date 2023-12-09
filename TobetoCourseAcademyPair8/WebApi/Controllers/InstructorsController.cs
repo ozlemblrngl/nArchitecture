@@ -21,8 +21,8 @@ namespace WebApi.Controllers
 
         public async Task<IActionResult> Add([FromBody] CreateInstructorRequest createInstructorRequest)
         {
-            await _instructorService.Add(createInstructorRequest);
-            return Ok();
+           var result = await _instructorService.Add(createInstructorRequest);
+            return Ok(result);
 ;        }
 
         [HttpGet]

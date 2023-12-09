@@ -30,7 +30,7 @@ namespace Business.Concretes
             Instructor instructor = _mapper.Map<Instructor>(createInstructorRequest);
             instructor.Id = Guid.NewGuid();
 
-            Instructor createdInstructor = await _instructorDal.AddAsync(instructor);
+            await _instructorDal.AddAsync(instructor);
 
             CreatedInstructorResponse createdInstructorResponse = _mapper.Map<CreatedInstructorResponse>(instructor);
 
@@ -40,9 +40,8 @@ namespace Business.Concretes
         public async Task<IPaginate<GetListInstructorResponse>> GetListAsync()
         {
             var result = await _instructorDal.GetListAsync();
-            Paginate<GetListInstructorResponse> response = new();
-            response = _mapper.Map<Paginate<GetListInstructorResponse>>(result);
-
+            Paginate<GetListInstructorResponse> response = _mapper.Map<Paginate<GetListInstructorResponse>>(result);
+          
             return response;
 
         }

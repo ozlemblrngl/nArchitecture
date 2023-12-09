@@ -20,8 +20,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateCategoryRequest createCategoryRequest)
         {
-            await _categoryService.Add(createCategoryRequest); 
-            return Ok();
+            var result = await _categoryService.Add(createCategoryRequest); 
+            return Ok(result);
         }
         [HttpGet]
         public async Task<IActionResult> GetList()

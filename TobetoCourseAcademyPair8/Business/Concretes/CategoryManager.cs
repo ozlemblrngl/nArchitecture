@@ -30,7 +30,7 @@ namespace Business.Concretes
             Category category = _mapper.Map<Category>(createCategoryRequest);
             category.Id = Guid.NewGuid();
             
-            Category createdCategory = await _categoryDal.AddAsync(category);
+            await _categoryDal.AddAsync(category);
 
             CreatedCategoryResponse createdCategoryResponse = _mapper.Map<CreatedCategoryResponse>(category);
             return createdCategoryResponse;
@@ -39,9 +39,8 @@ namespace Business.Concretes
         public async Task<IPaginate<GetListCategoryResponse>> GetListAsync()
         {
             var result = await _categoryDal.GetListAsync();
-            Paginate<GetListCategoryResponse> response = new Paginate<GetListCategoryResponse>();
-            response = _mapper.Map<Paginate<GetListCategoryResponse>>(result);
-
+            Paginate<GetListCategoryResponse> response = _mapper.Map<Paginate<GetListCategoryResponse>>(result);
+          
             return response;
         }
     }

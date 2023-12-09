@@ -31,9 +31,9 @@ namespace Business.Concretes
             Course course = _mapper.Map<Course>(createCourseRequest); // createCourseRequest'i course'a çevir.
             course.Id = Guid.NewGuid();
 
-            Course createdcourse = await _courseDal.AddAsync(course);
+            await _courseDal.AddAsync(course);
 
-            CreatedCourseResponse createdCourseResponse = _mapper.Map<CreatedCourseResponse>(createdcourse); // createdCourse'u CreatedCourseRespponse'a çevir.
+            CreatedCourseResponse createdCourseResponse = _mapper.Map<CreatedCourseResponse>(course); // course'u CreatedCourseRespponse'a çevir.
             return createdCourseResponse;
 
             // AutoMapping öncesi aşağıdaki gibi yazmamız gerekiyordu.
@@ -62,9 +62,8 @@ namespace Business.Concretes
         {
 
             var result= await _courseDal.GetListAsync();
-            Paginate<GetListCourseResponse> response = new();
-            response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
-
+            Paginate<GetListCourseResponse> response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
+            
             return response;
 
         }
