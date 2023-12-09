@@ -1,18 +1,16 @@
-﻿using Core.Entities;
+﻿using Entities.Concretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concretes
+namespace Business.Dtos.Request
 {
-    public class Category : Entity<Guid>
+    public class CreateCategoryRequest
     {
         public string CategoryName { get; set; }
 
         public List<Course>? Courses { get; set; }
-
-
     }
 }

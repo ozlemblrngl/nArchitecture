@@ -41,10 +41,12 @@ namespace Business.Concretes
             return createdProductResponse;
         }
         //GetListProductResponce mapper kullanmadan çevir
-        public async Task<Paginate<Product>> GetListAsync()
+        public async Task<Paginate<CreatedProductResponse>> GetListAsync()
         {
             var result= await _productDal.GetListAsync();
             return result;
         }
+
+       
     }
 }

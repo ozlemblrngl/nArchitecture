@@ -16,8 +16,9 @@ namespace DataAccess
     {
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration) 
         {
-            services.AddDbContext<TobetoCourseContext>(options => options.UseSqlServer("Server=DESKTOP-3LFDKEV;Database=TobetoCourseCategoryTest;Trusted_Connection= true; TrustServerCertificate = True"));
-           // services.AddDbContext<TobetoCourseContext>(options => options.UseInMemoryDatabase("TobetoCourse"));
+            // services.AddDbContext<TobetoCourseContext>(options => options.UseSqlServer("Server=DESKTOP-3LFDKEV;Database=TobetoCourseCategoryTest;Trusted_Connection= true; TrustServerCertificate = True"));
+            // services.AddDbContext<TobetoCourseContext>(options => options.UseInMemoryDatabase("TobetoCourse"));
+            services.AddDbContext<TobetoCourseContext>(options => options.UseSqlServer("TobetoCourseAcademyPair8"));
             services.AddScoped<ICategoryDal, EfCategoryDal>();
             services.AddScoped<ICourseDal, EfCourseDal>();
             services.AddScoped<IInstructorDal, EfInstructorDal>();
