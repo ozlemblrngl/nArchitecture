@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
 using Business.Dtos.Request;
+using Business.Dtos.Requests;
 using Business.Dtos.Response;
 using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using DataAccess.Concretes;
 using Entities.Concretes;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,11 +60,10 @@ namespace Business.Concretes
             // return createdCourseResponse; // mapping yaptığımız için artık ihtiyacımız yok buraya.
 
         }
-
-        public async Task<IPaginate<GetListCourseResponse>> GetListAsync()
+        public async Task<IPaginate<GetListCourseResponse>> GetListAsync(PageRequest pageRequest)
         {
 
-            var result= await _courseDal.GetListAsync();
+            var result= await _courseDal.GetListAsync(index:pageRequest.Index, size: pageRequest.Size );
             Paginate<GetListCourseResponse> response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
             
             return response;

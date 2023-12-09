@@ -11,7 +11,7 @@ namespace Business.Dtos.Responses
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-       // public List<Course>? Courses { get; set; } --> kullanım ihtiyacına göre ileride kullanılabilir.
+      // public List<Course>? Courses { get; set; } --> kullanım ihtiyacına göre ileride kullanılabilir.
                                                   // --> categoriye ait kursların da listelenmesi gerekirse include ile burası da doldurulabilir ileride.
     }
 }

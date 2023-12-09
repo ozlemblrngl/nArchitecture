@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
 using Business.Dtos.Request;
+using Business.Dtos.Requests;
 using Business.Dtos.Response;
 using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
@@ -36,9 +37,9 @@ namespace Business.Concretes
             return createdCategoryResponse;
         }
 
-        public async Task<IPaginate<GetListCategoryResponse>> GetListAsync()
+        public async Task<IPaginate<GetListCategoryResponse>> GetListAsync(PageRequest pageRequest)
         {
-            var result = await _categoryDal.GetListAsync();
+            var result = await _categoryDal.GetListAsync(index:pageRequest.Index,pageRequest.Size);
             Paginate<GetListCategoryResponse> response = _mapper.Map<Paginate<GetListCategoryResponse>>(result);
           
             return response;

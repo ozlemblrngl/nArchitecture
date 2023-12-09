@@ -1,4 +1,5 @@
 ﻿using Business.Dtos.Request;
+using Business.Dtos.Requests;
 using Business.Dtos.Response;
 using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
@@ -13,7 +14,7 @@ namespace Business.Abstracts
 {
     public interface ICourseService
     {
-        Task<IPaginate<GetListCourseResponse>> GetListAsync();
+        Task<IPaginate<GetListCourseResponse>> GetListAsync(PageRequest pageRequest);
         Task<CreatedCourseResponse> Add(CreateCourseRequest createCourseRequest);
     }
 }

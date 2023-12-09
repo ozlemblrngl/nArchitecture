@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Request;
+using Business.Dtos.Requests;
 using Entities.Concretes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +28,9 @@ namespace WebApi.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList([FromQuery]PageRequest pageRequest)
         {
-            var result = await _courseService.GetListAsync();
+            var result = await _courseService.GetListAsync(pageRequest);
             return Ok(result);
         }
 
