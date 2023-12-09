@@ -32,11 +32,11 @@ namespace Business.Concretes
            Product createdProduct = await _productDal.AddAsync(product);
            
            CreatedProductResponse createdProductResponse = new CreatedProductResponse();
-            createdProductResponse.Id = createdProduct.Id;
-            createdProductResponse.ProductName = createProductRequest.ProductName; 
-            createdProductResponse.QuantityPerUnit = createProductRequest.QuantityPerUnit;
-            createdProductResponse.UnitPrice = createProductRequest.UnitPrice;
-            createdProductResponse.UnitsInStock= createProductRequest.UnitsInStock;
+            createdProductResponse.Id = createdProduct.Id; // createProductRequest de olur createdProduct yerine
+            createdProductResponse.ProductName = createdProduct.ProductName; 
+            createdProductResponse.QuantityPerUnit = createdProduct.QuantityPerUnit;
+            createdProductResponse.UnitPrice = createdProduct.UnitPrice;
+            createdProductResponse.UnitsInStock= createdProduct.UnitsInStock;
 
             return createdProductResponse;
         }
