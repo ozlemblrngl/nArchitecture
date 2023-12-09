@@ -10,7 +10,7 @@ namespace Business.Dtos.Response
     public class CreatedCategoryResponse
     {
         public Guid Id { get; set; }
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
         public List<Course>? Courses { get; set; }
     }

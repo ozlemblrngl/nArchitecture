@@ -1,4 +1,6 @@
 ﻿using Business.Abstracts;
+using Business.Dtos.Request;
+using Business.Dtos.Response;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
@@ -19,12 +21,23 @@ namespace Business.Concretes
             _instructorDal = instructorDal;
         }
 
-        public async Task Add(Instructor instructor)
+        public async Task<CreatedInstructorResponse> Add(CreateInstructorRequest createInstructorRequest)
         {
-            await _instructorDal.AddAsync(instructor);
+            Instructor instructor = new Instructor();
+            instructor.Id = Guid.NewGuid();
+            instructor.FirstName = createInstructorRequest.FirstName;
+            instructor.LastName = createInstructorRequest.LastName;
+            Instructor createdInstructor = await _instructorDal.AddAsync(instructor);
+
+            CreatedInstructorResponse createdInstructorResponse = new CreatedInstructorResponse();
+            createdInstructorResponse.Id = createdInstructor.Id;
+            createdInstructorResponse.FirstName = createInstructorRequest.FirstName;
+            createdInstructorResponse.LastName = createInstructorRequest.LastName;
+
+            return createdInstructorResponse;
         }
 
-        public async Task<IPaginate<Instructor>> GetListAsync()
+        public async Task<IPaginate<CreatedInstructorResponse>> GetListAsync()
         {
            var result = await _instructorDal.GetListAsync();
            return result;

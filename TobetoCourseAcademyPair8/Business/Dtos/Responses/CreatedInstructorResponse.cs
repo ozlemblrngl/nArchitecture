@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business.Dtos.Response
 {
-    public class CreatedInstructorRequest
+    public class CreatedInstructorResponse
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
