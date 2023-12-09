@@ -14,6 +14,8 @@ namespace DataAccess.Contexts
     {
         protected IConfiguration Configuration { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Course> Cources { get; set; }
         public TobetoCourseContext(DbContextOptions dbContextOptions , IConfiguration configuration) : base(dbContextOptions) 
         {
             Configuration = configuration; 

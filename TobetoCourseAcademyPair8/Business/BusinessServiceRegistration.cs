@@ -17,7 +17,7 @@ namespace Business
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICourseService, CourseManager>();
             services.AddScoped<IInstructorService, InstructorManager>();
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly()); // şu anda çalışan projeye ekle.
             return services;
         }
     }

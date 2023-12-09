@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Concretes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace Business.Dtos.Responses
 {
     public class GetListCategoryResponse
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public List<Course>? Courses { get; set; }
     }
 }

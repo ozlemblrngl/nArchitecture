@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Dtos.Request;
 using Business.Dtos.Response;
+using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
@@ -26,23 +27,22 @@ namespace Business.Concretes
 
         public async Task<CreatedCategoryResponse> Add(CreateCategoryRequest createCategoryRequest)
         {
-            Category category = new Category();
+            Category category = _mapper.Map<Category>(createCategoryRequest);
             category.Id = Guid.NewGuid();
-            category.Name = createCategoryRequest.Name;
-
+            
             Category createdCategory = await _categoryDal.AddAsync(category);
 
-            CreatedCategoryResponse createdCategoryResponse = new CreatedCategoryResponse();
-            createdCategoryResponse.Id = createdCategory.Id;
-            createdCategoryResponse.Name = createdCategory.Name;
-
+            CreatedCategoryResponse createdCategoryResponse = _mapper.Map<CreatedCategoryResponse>(category);
             return createdCategoryResponse;
         }
 
-        public async Task<IPaginate<CreatedCategoryResponse>> GetListAsync()
+        public async Task<IPaginate<GetListCategoryResponse>> GetListAsync()
         {
             var result = await _categoryDal.GetListAsync();
-            return result;
+            Paginate<GetListCategoryResponse> response = new Paginate<GetListCategoryResponse>();
+            response = _mapper.Map<Paginate<GetListCategoryResponse>>(result);
+
+            return response;
         }
     }
 }

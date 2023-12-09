@@ -1,6 +1,8 @@
-﻿using Business.Abstracts;
+﻿using AutoMapper;
+using Business.Abstracts;
 using Business.Dtos.Request;
 using Business.Dtos.Response;
+using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using Entities.Concretes;
@@ -15,32 +17,34 @@ namespace Business.Concretes
     public class InstructorManager : IInstructorService
     {
         IInstructorDal _instructorDal;
+        IMapper _mapper;
 
-        public InstructorManager(IInstructorDal instructorDal)
+        public InstructorManager(IInstructorDal instructorDal, IMapper mapper)
         {
             _instructorDal = instructorDal;
+            _mapper = mapper;
         }
 
         public async Task<CreatedInstructorResponse> Add(CreateInstructorRequest createInstructorRequest)
         {
-            Instructor instructor = new Instructor();
+            Instructor instructor = _mapper.Map<Instructor>(createInstructorRequest);
             instructor.Id = Guid.NewGuid();
-            instructor.FirstName = createInstructorRequest.FirstName;
-            instructor.LastName = createInstructorRequest.LastName;
+
             Instructor createdInstructor = await _instructorDal.AddAsync(instructor);
 
-            CreatedInstructorResponse createdInstructorResponse = new CreatedInstructorResponse();
-            createdInstructorResponse.Id = createdInstructor.Id;
-            createdInstructorResponse.FirstName = createdInstructor.FirstName;
-            createdInstructorResponse.LastName = createdInstructor.LastName;
+            CreatedInstructorResponse createdInstructorResponse = _mapper.Map<CreatedInstructorResponse>(instructor);
 
             return createdInstructorResponse;
         }
 
-        public async Task<IPaginate<CreatedInstructorResponse>> GetListAsync()
+        public async Task<IPaginate<GetListInstructorResponse>> GetListAsync()
         {
-           var result = await _instructorDal.GetListAsync();
-           return result;
+            var result = await _instructorDal.GetListAsync();
+            Paginate<GetListInstructorResponse> response = new();
+            response = _mapper.Map<Paginate<GetListInstructorResponse>>(result);
+
+            return response;
+
         }
     }
 }

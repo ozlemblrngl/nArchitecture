@@ -2,6 +2,7 @@
 using Business.Abstracts;
 using Business.Dtos.Request;
 using Business.Dtos.Response;
+using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using DataAccess.Concretes;
@@ -57,11 +58,15 @@ namespace Business.Concretes
 
         }
 
-        public async Task<IPaginate<CreatedCourseResponse>> GetListAsync()
+        public async Task<IPaginate<GetListCourseResponse>> GetListAsync()
         {
-            Task<Paginate> paginate = _mapper.Map<Course>(CreateCourseRequest);
+
             var result= await _courseDal.GetListAsync();
-            return result;
+            Paginate<GetListCourseResponse> response = new();
+            response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
+
+            return response;
+
         }
     }
 }

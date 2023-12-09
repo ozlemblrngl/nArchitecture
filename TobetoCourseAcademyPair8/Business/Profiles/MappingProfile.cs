@@ -21,16 +21,19 @@ namespace Business.Profiles
 
             CreateMap<Category, CreateCategoryRequest>().ReverseMap();
             CreateMap<Category, CreatedCategoryResponse>().ReverseMap();
-            CreateMap<Paginate<Category>, GetListCategoryResponse>().ReverseMap();
+            CreateMap<Paginate<Category>, Paginate<GetListCategoryResponse>>().ReverseMap();
+            CreateMap<Category, GetListCategoryResponse>().ReverseMap();
 
             CreateMap<Course, CreateCourseRequest>().ReverseMap();
             CreateMap<Course, CreatedCourseResponse>().ReverseMap();
-            CreateMap<Paginate<Course>, GetListCourseResponse>().ReverseMap();
+            CreateMap<Paginate<Course>, Paginate<GetListCourseResponse>>().ReverseMap();
+            CreateMap<Course, GetListCourseResponse>().ReverseMap();
 
 
             CreateMap<Instructor, CreateInstructorRequest>().ReverseMap();
             CreateMap<Instructor, CreatedInstructorResponse>().ReverseMap();
-            CreateMap<Paginate<Instructor>, GetListInstructorResponse>().ReverseMap();
+            CreateMap<Paginate<Instructor>, Paginate<GetListInstructorResponse>>().ReverseMap();
+            CreateMap<Instructor, GetListInstructorResponse>().ReverseMap();
 
 
         }
