@@ -16,5 +16,7 @@ namespace Business.Abstracts
     {
         Task<IPaginate<GetListCategoryResponse>> GetListAsync(PageRequest pageRequest);
         Task<CreatedCategoryResponse> Add(CreateCategoryRequest createCategoryRequest);
+
+        Task<DeletedCategoryResponse> Delete(DeleteCategoryRequest deleteCategoryRequest);
     }
 }

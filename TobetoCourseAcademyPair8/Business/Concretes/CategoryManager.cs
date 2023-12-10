@@ -37,9 +37,20 @@ namespace Business.Concretes
             return createdCategoryResponse;
         }
 
+        public async Task<DeletedCategoryResponse> Delete(DeleteCategoryRequest deleteCategoryRequest)
+        {
+            Category category = await _categoryDal.GetAsync(predicate: c=> c.Id == deleteCategoryRequest.Id);
+            await _categoryDal.DeleteAsync(category);
+
+            DeletedCategoryResponse response = _mapper.Map<DeletedCategoryResponse>(category);
+
+            return response;
+        
+        }
+
         public async Task<IPaginate<GetListCategoryResponse>> GetListAsync(PageRequest pageRequest)
         {
-            var result = await _categoryDal.GetListAsync(index:pageRequest.Index,pageRequest.Size);
+            var result = await _categoryDal.GetListAsync(index:pageRequest.Index,size:pageRequest.Size);
             Paginate<GetListCategoryResponse> response = _mapper.Map<Paginate<GetListCategoryResponse>>(result);
           
             return response;
