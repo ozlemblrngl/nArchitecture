@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Business.Dtos.Responses;
+using Core.DataAccess.Paging;
+using Entities.Concretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +14,10 @@ namespace Business.Profiles
     {
         public ProductMappingProfiles()
         {
+            CreateMap<Product, GetListProductResponse>()
+            .ForMember(destinationMember: p => p.CategoryName, memberOptions: opt => opt.MapFrom(p => p.Category.Name)).ReverseMap();
             
+            CreateMap<Paginate<Product>, Paginate<GetListProductResponse>>().ReverseMap();
         }
     }
 }

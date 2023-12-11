@@ -21,5 +21,7 @@ namespace Core.DataAccess.Paging
 
         public bool HasPrevious => Index > 0;
         public bool HasNext => Index + 1 < Pages;
+
+        public int From => throw new NotImplementedException();
     }
 }

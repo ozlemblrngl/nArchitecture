@@ -11,17 +11,21 @@ using Business.Dtos.Requests;
 using Business.Dtos.Responses;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Business.Concretes
 {
     public class ProductManager : IProductService
     {
         private IProductDal _productDal;
+        private IMapper _mapper;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal, IMapper mapper)
         {
             _productDal = productDal;
+            _mapper = mapper;
         }
+
         public async Task<CreatedProductResponse> Add(CreateProductRequest createProductRequest)
         {
             Product product = new Product();
@@ -31,33 +35,29 @@ namespace Business.Concretes
             product.UnitPrice = createProductRequest.UnitPrice;
             product.UnitsInStock = createProductRequest.UnitsInStock;
 
-           Product createdProduct = await _productDal.AddAsync(product);
-           
-           CreatedProductResponse createdProductResponse = new CreatedProductResponse();
+            Product createdProduct = await _productDal.AddAsync(product);
+
+            CreatedProductResponse createdProductResponse = new CreatedProductResponse();
             createdProductResponse.Id = createdProduct.Id; // createProductRequest de olur createdProduct yerine
-            createdProductResponse.ProductName = createdProduct.ProductName; 
+            createdProductResponse.ProductName = createdProduct.ProductName;
             createdProductResponse.QuantityPerUnit = createdProduct.QuantityPerUnit;
             createdProductResponse.UnitPrice = createdProduct.UnitPrice;
-            createdProductResponse.UnitsInStock= createdProduct.UnitsInStock;
+            createdProductResponse.UnitsInStock = createdProduct.UnitsInStock;
 
             return createdProductResponse;
         }
 
         public async Task<IPaginate<GetListProductResponse>> GetListAsync()
         {
-            var result = await _productDal.GetListAsync(
+            var data = await _productDal.GetListAsync(
             include: p => p.Include(p => p.Category)
             );
-            return (null);
 
-            //    return result;
+            var result = _mapper.Map<IPaginate<GetListProductResponse>>(data);
+            return result;
+
+
         }
-        //GetListProductResponce mapper kullanmadan çevir
-        //public async Task<Paginate<CreatedProductResponse>> GetListAsync()
-        //{
-        //   
-        //}
-
-
     }
+        
 }
