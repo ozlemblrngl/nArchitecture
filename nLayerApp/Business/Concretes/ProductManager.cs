@@ -28,23 +28,11 @@ namespace Business.Concretes
 
         public async Task<CreatedProductResponse> Add(CreateProductRequest createProductRequest)
         {
-            Product product = new Product();
-            product.CategoryId = createProductRequest.CategoryId;
-            product.ProductName = createProductRequest.ProductName;
-            product.QuantityPerUnit = createProductRequest.QuantityPerUnit;
-            product.UnitPrice = createProductRequest.UnitPrice;
-            product.UnitsInStock = createProductRequest.UnitsInStock;
+           Product product = _mapper.Map<Product>(createProductRequest);
+           Product createdProduct = await _productDal.AddAsync(product);
 
-            Product createdProduct = await _productDal.AddAsync(product);
-
-            CreatedProductResponse createdProductResponse = new CreatedProductResponse();
-            createdProductResponse.Id = createdProduct.Id; // createProductRequest de olur createdProduct yerine
-            createdProductResponse.ProductName = createdProduct.ProductName;
-            createdProductResponse.QuantityPerUnit = createdProduct.QuantityPerUnit;
-            createdProductResponse.UnitPrice = createdProduct.UnitPrice;
-            createdProductResponse.UnitsInStock = createdProduct.UnitsInStock;
-
-            return createdProductResponse;
+           CreatedProductResponse createdProductResponse = _mapper.Map<CreatedProductResponse>(createdProduct);
+           return createdProductResponse;
         }
 
         public async Task<IPaginate<GetListProductResponse>> GetListAsync()

@@ -34,6 +34,6 @@ public void Configure(EntityTypeBuilder<Product> builder)
             builder.HasQueryFilter(b => !b.DeletedDate.HasValue); // benim tüm sorgularıma(selectlerime) ben sana hiç söylemeden benim bu filtremi(where koşulunu) uygula. yani where DeletedDate is null uygula demek. Bir nesneye default değer koymak istiyorsak bunu yapıyoruz.
         }
 
-        //queryfilter --> 
+        
     }
 }
