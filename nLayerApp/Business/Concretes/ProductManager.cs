@@ -41,9 +41,8 @@ namespace Business.Concretes
             include: p => p.Include(p => p.Category)
             );
 
-            var result = _mapper.Map<IPaginate<GetListProductResponse>>(data);
+            var result = _mapper.Map<Paginate<GetListProductResponse>>(data);
             return result;
-
 
         }
     }

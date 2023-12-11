@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concretes
 {
-    public class Product : Entity<int> // veritabanına string olarak atar.
+    public class Product : Entity<int> // veritabanına  olarak atar.
     {
         public int CategoryId { get; set; }
         public string ProductName { get; set; }

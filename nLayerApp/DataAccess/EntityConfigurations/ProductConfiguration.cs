@@ -15,7 +15,7 @@ namespace DataAccess.EntityConfigurations
 public void Configure(EntityTypeBuilder<Product> builder)
         {
             // senin id alanın vardır zorunludur
-            builder.ToTable("Products").HasKey(b => b.Id); // category tablosuna map olacaksın
+            builder.ToTable("Products").HasKey(b => b.Id); // products tablosuna map olacaksın
             builder.Property(b => b.Id).HasColumnName("ProductId").IsRequired();
 
             builder.Property(b => b.CategoryId).HasColumnName("CategoryId");

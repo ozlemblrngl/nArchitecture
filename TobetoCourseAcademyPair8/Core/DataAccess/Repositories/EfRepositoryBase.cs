@@ -93,7 +93,7 @@ namespace Core.DataAccess.Repositories
             if (withDeleted)
                 queryable = queryable.IgnoreQueryFilters();
             else // ben ekledim
-                queryable = queryable.Where(x => !x.DeletedDate.HasValue);             
+               queryable = queryable.Where(x => !x.DeletedDate.HasValue);             
             if (predicate != null)
                 queryable = queryable.Where(predicate);
             if (orderBy != null)
