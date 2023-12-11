@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Dtos.Requests
+namespace Business.Dtos.Requests.Course
 {
-    public class DeleteCategoryRequest
+    public class DeleteCourseRequest
     {
         public Guid Id { get; set; }
+
     }
 }

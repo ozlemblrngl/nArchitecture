@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstracts;
-using Business.Dtos.Request;
 using Business.Dtos.Requests;
+using Business.Dtos.Requests.Category;
 using Business.Dtos.Response;
 using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
@@ -29,11 +29,10 @@ namespace Business.Concretes
         public async Task<CreatedCategoryResponse> Add(CreateCategoryRequest createCategoryRequest)
         {
             Category category = _mapper.Map<Category>(createCategoryRequest);
-            category.Id = Guid.NewGuid();
             
-            await _categoryDal.AddAsync(category);
+            Category createdCategory = await _categoryDal.AddAsync(category);
 
-            CreatedCategoryResponse createdCategoryResponse = _mapper.Map<CreatedCategoryResponse>(category);
+            CreatedCategoryResponse createdCategoryResponse = _mapper.Map<CreatedCategoryResponse>(createdCategory);
             return createdCategoryResponse;
         }
 
@@ -55,6 +54,19 @@ namespace Business.Concretes
           
             return response;
         }
+
+        
+        public async Task<UpdatedCategoryResponse> Update(UpdateCategoryRequest updateCategoryRequest)
+        {
+            Category category = await _categoryDal.GetAsync(predicate: c=>c.Id == updateCategoryRequest.Id );
+            category.Name = updateCategoryRequest.Name;
+            Category updatedCategory = await _categoryDal.UpdateAsync(category);
+            UpdatedCategoryResponse response = _mapper.Map<UpdatedCategoryResponse>(updatedCategory);
+            return response;
+        }
+
+      
+
     }
 }
 

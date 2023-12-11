@@ -1,6 +1,6 @@
 ﻿using Business.Abstracts;
-using Business.Dtos.Request;
 using Business.Dtos.Requests;
+using Business.Dtos.Requests.Category;
 using Entities.Concretes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +36,14 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Delete(DeleteCategoryRequest deleteCategoryRequest)
         {
             var result = await _categoryService.Delete(deleteCategoryRequest);
+            return Ok(result);
+        }
+
+        [HttpPut]
+
+        public async Task<IActionResult> Update([FromBody] UpdateCategoryRequest updateCategoryRequest)
+        {
+            var result = await _categoryService.Update(updateCategoryRequest);
             return Ok(result);
         }
     }

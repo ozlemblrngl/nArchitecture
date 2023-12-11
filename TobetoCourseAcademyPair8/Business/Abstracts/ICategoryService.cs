@@ -1,5 +1,5 @@
-﻿using Business.Dtos.Request;
-using Business.Dtos.Requests;
+﻿using Business.Dtos.Requests;
+using Business.Dtos.Requests.Category;
 using Business.Dtos.Response;
 using Business.Dtos.Responses;
 using Core.DataAccess.Paging;
@@ -18,5 +18,7 @@ namespace Business.Abstracts
         Task<CreatedCategoryResponse> Add(CreateCategoryRequest createCategoryRequest);
 
         Task<DeletedCategoryResponse> Delete(DeleteCategoryRequest deleteCategoryRequest);
+
+        Task<UpdatedCategoryResponse> Update(UpdateCategoryRequest updateCategoryRequest);
     }
 }

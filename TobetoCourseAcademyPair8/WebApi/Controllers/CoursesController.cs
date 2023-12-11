@@ -1,8 +1,7 @@
 ﻿using Business.Abstracts;
 using Business.Dtos.Request;
 using Business.Dtos.Requests;
-using Entities.Concretes;
-using Microsoft.AspNetCore.Http;
+using Business.Dtos.Requests.Course;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -22,15 +21,31 @@ namespace WebApi.Controllers
 
         public async Task<IActionResult> Add([FromBody] CreateCourseRequest createCourseRequest)
         {
-            var result= await _courseService.Add(createCourseRequest);
+            var result = await _courseService.Add(createCourseRequest);
             return Ok(result);
         }
 
         [HttpGet]
 
-        public async Task<IActionResult> GetList([FromQuery]PageRequest pageRequest)
+        public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             var result = await _courseService.GetListAsync(pageRequest);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+
+        public async Task<IActionResult> Delete(DeleteCourseRequest deleteCourseRequest)
+        {
+            var result = await _courseService.Delete(deleteCourseRequest);
+            return Ok(result);
+        }
+
+        [HttpPut]
+
+        public async Task<IActionResult> Update([FromBody] UpdateCourseRequest updateCourseRequest)
+        {
+            var result = await _courseService.Update(updateCourseRequest);
             return Ok(result);
         }
 

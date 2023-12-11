@@ -2,19 +2,14 @@
 using Business.Abstracts;
 using Business.Dtos.Request;
 using Business.Dtos.Requests;
+using Business.Dtos.Requests.Course;
 using Business.Dtos.Response;
 using Business.Dtos.Responses;
+using Business.Dtos.Responses.Course;
 using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
-using DataAccess.Concretes;
 using Entities.Concretes;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Concretes
 {
@@ -32,11 +27,10 @@ namespace Business.Concretes
         public async Task<CreatedCourseResponse> Add(CreateCourseRequest createCourseRequest)
         {
             Course course = _mapper.Map<Course>(createCourseRequest); // createCourseRequest'i course'a çevir.
-            course.Id = Guid.NewGuid();
 
-            await _courseDal.AddAsync(course);
+            Course createdCourse = await _courseDal.AddAsync(course);
 
-            CreatedCourseResponse createdCourseResponse = _mapper.Map<CreatedCourseResponse>(course); // course'u CreatedCourseRespponse'a çevir.
+            CreatedCourseResponse createdCourseResponse = _mapper.Map<CreatedCourseResponse>(createdCourse); // createdCourse'u CreatedCourseResponse'a çevir.
             return createdCourseResponse;
 
             // AutoMapping öncesi aşağıdaki gibi yazmamız gerekiyordu.
@@ -60,12 +54,41 @@ namespace Business.Concretes
             // return createdCourseResponse; // mapping yaptığımız için artık ihtiyacımız yok buraya.
 
         }
+
+        public async Task<DeletedCourseResponse> Delete(DeleteCourseRequest deleteCourseRequest)
+        {
+            Course course = await _courseDal.GetAsync(predicate: c => c.Id == deleteCourseRequest.Id);
+            Course deletedCourse = await _courseDal.DeleteAsync(course);
+            DeletedCourseResponse response = _mapper.Map<DeletedCourseResponse>(deletedCourse);
+            return response;
+        }
+
         public async Task<IPaginate<GetListCourseResponse>> GetListAsync(PageRequest pageRequest)
         {
 
-            var result= await _courseDal.GetListAsync(index:pageRequest.Index, size: pageRequest.Size );
+            var result = await _courseDal.GetListAsync(
+                index: pageRequest.Index,
+                size: pageRequest.Size,
+                include: p => p.Include(p => p.Category).Include(p => p.Instructor)
+            );
             Paginate<GetListCourseResponse> response = _mapper.Map<Paginate<GetListCourseResponse>>(result);
-            
+
+            return response;
+
+        }
+
+        public async Task<UpdatedCourseResponse> Update(UpdateCourseRequest updateCourseRequest)
+        {
+            Course course = await _courseDal.GetAsync(predicate: c => c.Id == updateCourseRequest.Id);
+            course.Name = updateCourseRequest.Name;
+            course.Description = updateCourseRequest.Description;
+            course.Price = updateCourseRequest.Price;
+            course.CategoryId = updateCourseRequest.CategoryId;
+            course.ImageUrl = updateCourseRequest.ImageUrl;
+            course.InstructorId = updateCourseRequest.InstructorId;
+
+            Course createdCourse = await _courseDal.UpdateAsync(course);
+            UpdatedCourseResponse response = _mapper.Map<UpdatedCourseResponse>(createdCourse);
             return response;
 
         }
