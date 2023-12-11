@@ -27,7 +27,7 @@ public void Configure(EntityTypeBuilder<Product> builder)
 
             builder.Property(b => b.QuantityPerUnit).HasColumnName("QuantityPerUnit");
 
-            builder.HasIndex(indexExpression: b => b.ProductName, name: "UK_Categories_Name").IsUnique(); // UNİQUEkey ile işaretler alanlar veritabanında bir daha terar edemez anlamında. uniquekey default olarak tekrar edilemez.
+            builder.HasIndex(indexExpression: b => b.ProductName, name: "UK_Products_ProductName").IsUnique(); // UNİQUEkey ile işaretler alanlar veritabanında bir daha terar edemez anlamında. uniquekey default olarak tekrar edilemez.
 
             builder.HasOne(b => b.Category); // bire çok ilişki categorynin birden fazla ürünü vardır.
 

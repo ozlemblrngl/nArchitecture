@@ -17,7 +17,7 @@ namespace DataAccess.EntityConfigurations
              // senin id alanın vardır zorunludur
             builder.ToTable("Categories").HasKey(b => b.Id); // category tablosuna map olacaksın
             builder.Property(b => b.Id ).HasColumnName("Id").IsRequired(); builder.Property(b => b.Name).HasColumnName("Name").IsRequired(); // senin id alanın vardır zorunludur
-            builder.HasIndex(indexExpression: b => b.Name, name: "UK_Categories_Name").IsUnique(); // UNİQUEkey ile işaretler alanlar veritabanında bir daha terar edemez anlamında. uniquekey default olarak tekrar edilemez.
+            builder.HasIndex(indexExpression: b => b.Name, name: "UK_Categories_CategoryName").IsUnique(); // UNİQUEkey ile işaretler alanlar veritabanında bir daha terar edemez anlamında. uniquekey default olarak tekrar edilemez.
 
             builder.HasMany(b => b.Products); // bire çok ilişki categorynin birden fazla ürünü vardır.
 
