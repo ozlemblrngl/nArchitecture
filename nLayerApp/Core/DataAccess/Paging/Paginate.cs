@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccess.Paging
 {
-    public class Paginate<T>
+    public class Paginate<T> : IPaginate<T>
     {
         public Paginate()
         {

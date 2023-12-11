@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Dtos.Requests;
 using Business.Dtos.Responses;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Concretes
 {
@@ -40,13 +42,22 @@ namespace Business.Concretes
 
             return createdProductResponse;
         }
-        //GetListProductResponce mapper kullanmadan çevir
-        public async Task<Paginate<CreatedProductResponse>> GetListAsync()
-        {
-            var result= await _productDal.GetListAsync();
-            return result;
-        }
 
-       
+        public async Task<IPaginate<GetListProductResponse>> GetListAsync()
+        {
+            var result = await _productDal.GetListAsync(
+            include: p => p.Include(p => p.Category)
+            );
+            return (null);
+
+            //    return result;
+        }
+        //GetListProductResponce mapper kullanmadan çevir
+        //public async Task<Paginate<CreatedProductResponse>> GetListAsync()
+        //{
+        //   
+        //}
+
+
     }
 }
