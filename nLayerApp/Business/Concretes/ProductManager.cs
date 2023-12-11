@@ -23,7 +23,7 @@ namespace Business.Concretes
         public async Task<CreatedProductResponse> Add(CreateProductRequest createProductRequest)
         {
             Product product = new Product();
-            product.Id = Guid.NewGuid();
+            product.CategoryId = createProductRequest.CategoryId;
             product.ProductName = createProductRequest.ProductName;
             product.QuantityPerUnit = createProductRequest.QuantityPerUnit;
             product.UnitPrice = createProductRequest.UnitPrice;

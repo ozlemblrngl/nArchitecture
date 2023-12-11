@@ -16,6 +16,8 @@ namespace DataAccess.Contexts
     {
         protected IConfiguration Configuration { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
         public NorthwindContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions) 
         { Configuration = configuration; 
         //Database.EnsureCreated();
@@ -23,7 +25,7 @@ namespace DataAccess.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); // configleri yükle
         
         }
 
