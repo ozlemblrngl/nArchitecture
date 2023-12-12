@@ -87,8 +87,8 @@ namespace Business.Concretes
             course.ImageUrl = updateCourseRequest.ImageUrl;
             course.InstructorId = updateCourseRequest.InstructorId;
 
-            Course createdCourse = await _courseDal.UpdateAsync(course);
-            UpdatedCourseResponse response = _mapper.Map<UpdatedCourseResponse>(createdCourse);
+            Course updatedCourse = await _courseDal.UpdateAsync(course);
+            UpdatedCourseResponse response = _mapper.Map<UpdatedCourseResponse>(updatedCourse);
             return response;
 
         }
