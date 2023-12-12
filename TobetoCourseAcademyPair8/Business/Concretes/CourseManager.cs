@@ -79,17 +79,11 @@ namespace Business.Concretes
 
         public async Task<UpdatedCourseResponse> Update(UpdateCourseRequest updateCourseRequest)
         {
-            Course course = await _courseDal.GetAsync(predicate: c => c.Id == updateCourseRequest.Id);
-            course.Name = updateCourseRequest.Name;
-            course.Description = updateCourseRequest.Description;
-            course.Price = updateCourseRequest.Price;
-            course.CategoryId = updateCourseRequest.CategoryId;
-            course.ImageUrl = updateCourseRequest.ImageUrl;
-            course.InstructorId = updateCourseRequest.InstructorId;
-
-            Course updatedCourse = await _courseDal.UpdateAsync(course);
-            UpdatedCourseResponse response = _mapper.Map<UpdatedCourseResponse>(updatedCourse);
-            return response;
+            Course updateCourse = await _courseDal.GetAsync(p => p.Id == updateCourseRequest.Id, include: p => p.Include(p => p.Category).Include(p => p.Instructor));
+            _mapper.Map(updateCourseRequest, updateCourse);
+            Course updatedCourse = await _courseDal.UpdateAsync(updateCourse);
+            UpdatedCourseResponse updatedCourseResponse = _mapper.Map<UpdatedCourseResponse>(updatedCourse);
+            return updatedCourseResponse;
 
         }
     }

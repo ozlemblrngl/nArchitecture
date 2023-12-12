@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         {
             var result = await _instructorService.Add(createInstructorRequest);
             return Ok(result);
-            ;
+
         }
 
         [HttpGet]

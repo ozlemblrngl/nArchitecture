@@ -35,7 +35,6 @@ namespace Business.Concretes
         }
 
 
-
         public async Task<DeletedInstructorResponse> Delete(DeleteInstructorRequest deleteCourseRequest)
         {
             Instructor instructor = await _instructorDal.GetAsync(predicate: i => i.Id == deleteCourseRequest.Id);
@@ -52,7 +51,6 @@ namespace Business.Concretes
             return response;
 
         }
-
 
         public async Task<UpdatedInstructorResponse> Update(UpdateInstructorRequest updateInstructorRequest)
         {
